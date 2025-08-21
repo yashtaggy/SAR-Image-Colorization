@@ -36,21 +36,24 @@ This project aims to build a **Deep Learning model** that colorizes grayscale SA
 - **Version Control:** GitHub + Git LFS / DVC for large files
 
 ## 📂 Repo Structure
-   SAR-Colorization/
-   ├── app/ # Deployment (API/UI)
-   ├── checkpoints/ # Saved models (gitignored)
-   ├── configs/ # Config files for training/eval
-   ├── data/ # Preprocessed data (gitignored)
-   ├── models/ # Model definitions (U-Net, Pix2Pix)
-   ├── notebooks/ # Jupyter notebooks for experiments
-   ├── reports/ # Evaluation reports, results
-   ├── scripts/ # Preprocessing, metrics, utils
-   ├── train.py # Training entrypoint
-   ├── evaluate.py # Evaluation script
-   ├── infer.py # Inference script
-   ├── requirements.txt # Python dependencies
-   ├── LICENSE
-   └── README.md
+
+| Directory/File         | Description                                                          |
+|------------------------|----------------------------------------------------------------------|
+| `SAR-Colorization/`    | The root directory of the project.                                   |
+| ├── `app/`             | Contains code for deployment, including API and UI components.       |
+| ├── `checkpoints/`     | Stores saved model checkpoints. This directory is `.gitignore`d.     |
+| ├── `configs/`         | Configuration files for training and evaluation.                     |
+| ├── `data/`            | Holds preprocessed data. This directory is `.gitignore`d.            |
+| ├── `models/`          | Defines the neural network architectures (e.g., U-Net, Pix2Pix).     |
+| ├── `notebooks/`       | Jupyter notebooks for experimentation and analysis.                  |
+| ├── `reports/`         | Stores evaluation reports and results.                               |
+| ├── `scripts/`         | Utility scripts for preprocessing, metrics, and other tasks.         |
+| ├── `train.py`         | The main script for training the model.                              |
+| ├── `evaluate.py`      | Script for evaluating the trained model.                             |
+| ├── `infer.py`         | Script for running inference.                                        |
+| ├── `requirements.txt` | Lists the required Python dependencies.                              |
+| ├── `LICENSE`          | The project's license file.                                          |
+| └── `README.md`        | The main documentation file.                                         |
 
 ## 🚀 Getting Started
 1. Clone this repo:
@@ -61,25 +64,25 @@ This project aims to build a **Deep Learning model** that colorizes grayscale SA
 
 2. Create environment:
 
-```bash
+   ```bash
    conda create -n sarcolor python=3.10 -y
    conda activate sarcolor
    pip install -r requirements.txt
    ```
 3. Run preprocessing:
 
-```bash
+   ```bash
    python scripts/preprocess.py --input data/raw --output data/tiles
    ```
 
 4. Train model:
 
-```
-python train.py --config configs/unet.yaml
-```
+   ```bash
+   python train.py --config configs/unet.yaml
+   ```
 
 5. Run inference:
 
-```
-python infer.py --ckpt checkpoints/unet_best.pt --input samples/sar.tif --out outputs/colorized.png
-```
+   ```bash
+   python infer.py --ckpt checkpoints/unet_best.pt --input samples/sar.tif --out outputs/colorized.png
+   ```
