@@ -1,1 +1,26 @@
+```gitignore
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.ipynb_checkpoints
 
+# Environments
+.env
+.venv/
+venv/
+*.swp
+
+# Data & Models
+data/
+checkpoints/
+outputs/
+logs/
+wandb/
+mlruns/
+
+# OS
+.DS_Store
+Thumbs.db
