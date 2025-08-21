@@ -34,3 +34,20 @@ This project aims to build a **Deep Learning model** that colorizes grayscale SA
 - **Experiment Tracking:** Weights & Biases (W&B) / MLflow
 - **Deployment:** FastAPI, Streamlit, Docker
 - **Version Control:** GitHub + Git LFS / DVC for large files
+
+## 📂 Repo Structure
+   SAR-Colorization/
+   ├── app/ # Deployment (API/UI)
+   ├── checkpoints/ # Saved models (gitignored)
+   ├── configs/ # Config files for training/eval
+   ├── data/ # Preprocessed data (gitignored)
+   ├── models/ # Model definitions (U-Net, Pix2Pix)
+   ├── notebooks/ # Jupyter notebooks for experiments
+   ├── reports/ # Evaluation reports, results
+   ├── scripts/ # Preprocessing, metrics, utils
+   ├── train.py # Training entrypoint
+   ├── evaluate.py # Evaluation script
+   ├── infer.py # Inference script
+   ├── requirements.txt # Python dependencies
+   ├── LICENSE
+   └── README.md
