@@ -1,0 +1,35 @@
+# Core
+numpy
+pandas
+matplotlib
+scikit-learn
+scikit-image
+tqdm
+Pillow
+
+# Deep Learning
+torch>=2.0.0
+torchvision
+torchaudio
+
+# Remote Sensing / Geospatial
+rasterio
+gdal
+geopandas
+
+# Data Augmentation
+albumentations
+
+# Experiment Tracking
+wandb
+mlflow
+
+# Deployment
+fastapi
+uvicorn
+streamlit
+
+# Utilities
+jupyter
+notebook
+opencv-python
