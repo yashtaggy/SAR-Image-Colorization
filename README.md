@@ -51,3 +51,35 @@ This project aims to build a **Deep Learning model** that colorizes grayscale SA
    ├── requirements.txt # Python dependencies
    ├── LICENSE
    └── README.md
+
+## 🚀 Getting Started
+1. Clone this repo:
+   ```bash
+   git clone https://github.com/<org>/<repo>.git
+   cd SAR-Colorization
+   ```
+
+2. Create environment:
+
+```bash
+   conda create -n sarcolor python=3.10 -y
+   conda activate sarcolor
+   pip install -r requirements.txt
+   ```
+3. Run preprocessing:
+
+```bash
+   python scripts/preprocess.py --input data/raw --output data/tiles
+   ```
+
+4. Train model:
+
+```
+python train.py --config configs/unet.yaml
+```
+
+5. Run inference:
+
+```
+python infer.py --ckpt checkpoints/unet_best.pt --input samples/sar.tif --out outputs/colorized.png
+```
