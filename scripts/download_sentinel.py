@@ -1,38 +1,73 @@
-import ee, geojson
+# scripts/download_sentinel.py
+import ee
+import json
+import argparse
 
-# Your registered GCP project ID
-PROJECT = "eighth-parity-455109-a1"
+# ---------------------------
+# Initialize Earth Engine
+# ---------------------------
+ee.Initialize(project="eighth-parity-455109-a1")   # <-- replace with your GCP project ID
 
-ee.Initialize(project=PROJECT)
+# ---------------------------
+# CLI Arguments
+# ---------------------------
+parser = argparse.ArgumentParser()
+parser.add_argument("--dataset", type=str, choices=["sentinel1", "sentinel2"], required=True,
+                    help="Which dataset to download: sentinel1 (SAR) or sentinel2 (Optical)")
+parser.add_argument("--start", type=str, default="2023-01-01", help="Start date (YYYY-MM-DD)")
+parser.add_argument("--end", type=str, default="2023-12-31", help="End date (YYYY-MM-DD)")
+parser.add_argument("--scale", type=int, default=30, help="Pixel size in meters")
+args = parser.parse_args()
 
-# Load Maharashtra AOI
-# Load Maharashtra AOI
-with open("data/raw/shapefiles/maharashtra.geojson") as f:
-    geo = geojson.load(f)
+# ---------------------------
+# Load AOI from GeoJSON
+# ---------------------------
+with open("data/processed/maharashtra.geojson") as f:
+    geo = json.load(f)
 
-aoi = ee.Geometry(geo['features'][0]['geometry'])
+fc = ee.FeatureCollection(geo)
+aoi = fc.geometry()
 
+# ---------------------------
+# Select Dataset
+# ---------------------------
+if args.dataset == "sentinel2":
+    # Optical: RGB bands only, harmonized collection
+    img = (ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+           .filterBounds(aoi)
+           .filterDate(args.start, args.end)
+           .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 10))
+           .select(["B2", "B3", "B4"])   # RGB
+           .median()
+           .clip(aoi))
+    description = "S2_Maharashtra"
 
-# Sentinel-2 optical (2023, <20% clouds)
-s2 = (ee.ImageCollection("COPERNICUS/S2")
-      .filterBounds(aoi)
-      .filterDate("2023-01-01", "2023-12-31")
-      .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 20)))
+elif args.dataset == "sentinel1":
+    # SAR: VV + VH polarizations
+    img = (ee.ImageCollection("COPERNICUS/S1_GRD")
+           .filterBounds(aoi)
+           .filterDate(args.start, args.end)
+           .filter(ee.Filter.eq("instrumentMode", "IW"))
+           .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
+           .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
+           .select(["VV", "VH"])
+           .median()
+           .clip(aoi))
+    description = "S1_Maharashtra"
 
-# Median composite
-s2_img = s2.median().clip(aoi)
-
+# ---------------------------
 # Export to Google Drive
+# ---------------------------
 task = ee.batch.Export.image.toDrive(
-    image=s2_img.select(["B2","B3","B4"]),
-    description="S2_Maharashtra_2023",
+    image=img,
+    description=description,
     folder="SAR_project",
-    fileNamePrefix="s2_maha_2023",
-    scale=10,
-    region=aoi,    
+    fileNamePrefix=description,
+    region=aoi,
+    scale=args.scale,
+    crs="EPSG:4326",
     maxPixels=1e13
 )
 task.start()
 
-
-print("[INFO] Export started → Check Google Drive (SAR_project folder).")
+print(f"[INFO] Export started → Google Drive/SAR_project/{description}")
