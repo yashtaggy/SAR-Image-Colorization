@@ -2,7 +2,7 @@
 import geopandas as gpd
 from shapely.geometry import Polygon, MultiPolygon
 
-IN_PATH = "data/raw/shapefiles/maharashtra_natural.shp"  # <-- adjust if needed
+IN_PATH = "data/raw/shapefiles/maharashtra_administritive.shp"  # <-- adjust if needed
 OUT_PATH = "data/processed/maharashtra.geojson"
 
 def fix_invalid(gdf):
