@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-check_file = "data/interim/sentinel2/S2_tile_2_std.tif"  # pick one file
+check_file = "data/interim/sentinel2/S2_tile_1_std.tif"  # pick one file
 
 with rasterio.open(check_file) as src:
     print(f"File: {check_file}, Bands: {src.count}")

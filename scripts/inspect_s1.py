@@ -1,7 +1,7 @@
 import rasterio, glob, os
 import numpy as np
 
-input_dir = "data/interim/sentinel2/"
+input_dir = "data/interim/sentinel1/"
 
 for file in glob.glob(os.path.join(input_dir, "*.tif")):
     with rasterio.open(file) as src:
