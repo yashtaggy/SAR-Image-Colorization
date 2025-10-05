@@ -140,3 +140,9 @@ python scripts/train_unet.py
 python scripts/visualize_results.py
 ```
 
+## 📈 Evaluation Metrics
+
+* MSE (Mean Squared Error)
+* PSNR (Peak Signal-to-Noise Ratio)
+* SSIM (Structural Similarity Index)
+* Perceptual Similarity (LPIPS)
