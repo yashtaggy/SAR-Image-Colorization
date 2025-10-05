@@ -146,3 +146,21 @@ python scripts/visualize_results.py
 * PSNR (Peak Signal-to-Noise Ratio)
 * SSIM (Structural Similarity Index)
 * Perceptual Similarity (LPIPS)
+  
+## 🧪 Future Enhancements
+
+* Integrate perceptual loss (VGG16 feature loss) for more visually pleasing results.
+* Add conditional GAN for realistic, high-fidelity colorization.
+* Deploy model as a user-friendly web app (Streamlit / FastAPI).
+* Extend dataset for multiple regions and seasons for better generalization.
+* Optimize the pipeline for efficient GPU/TPU training.
+
+## 🌍 Acknowledgements
+### We extend our gratitude to the following for providing data and essential tools:
+
+* European Space Agency (ESA) — Sentinel-1 & Sentinel-2 Open Data
+* Google Earth Engine (GEE)
+* SNAP Toolbox by ESA
+* PyTorch & Rasterio Communities
+
+> “Turning radar signals into meaningful colors — one pixel at a time.”
