@@ -63,3 +63,50 @@ EXPLORER-SAR-IMAGE-COLORIZATION/
 ├── .gitignore
 ├── requirements.txt
 └── README.md
+
+---
+
+## 🧠 Dataset Information
+
+The model is trained on carefully **coregistered** pairs of Sentinel-1 and Sentinel-2 imagery.
+
+| Source | Satellite | Type | Description |
+| :--- | :--- | :--- | :--- |
+| **Sentinel-1** | SAR (VV, VH) | **Input** | Grayscale radar backscatter imagery (Dual-polarization: Vertical-Vertical, Vertical-Horizontal). |
+| **Sentinel-2** | Optical (R, G, B) | **Target** | True color optical reference imagery (Red, Green, Blue bands). |
+
+* The dataset was **coregistered and resampled** to the same resolution and coordinate reference system (`EPSG:32643`).
+* **Example file:** `data/processed/collocated_s1_s2.tif`
+    * **Bands:** 6 (SAR + RGB)
+    * **Resolution:** 10m
+    * **Shape:** $10980 \times 10980$ pixels
+
+---
+
+## 🧩 Model Architecture
+
+The baseline model is a **U-Net** designed for robust image-to-image translation, specifically SAR-to-RGB.
+
+* **Model Type:** U-Net (Encoder-Decoder)
+* **Input:** 2-channel SAR image (VV, VH)
+* **Output:** 3-channel RGB image
+* **Loss Function:** Mean Squared Error (MSE) / Perceptual Loss (Initial experiments use MSE)
+* **Framework:** **PyTorch**
+* **Optimizer:** Adam ($\text{lr} = 1e-4$)
+
+### Advanced Versions
+Future iterations may explore more sophisticated models for enhanced realism and detail:
+* GAN-based colorization (**Pix2Pix / CycleGAN**)
+* Transformer-augmented U-Net (**Swin-UNet**)
+* Multi-scale perceptual learning
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to set up the environment and run the training pipeline.
+
+### 1️⃣ Clone the Repository
+```bash
+git clone [https://github.com/yashtaggy/SAR-Image-Colorization.git](https://github.com/yashtaggy/SAR-Image-Colorization.git)
+cd SAR-Image-Colorization
