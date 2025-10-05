@@ -110,3 +110,33 @@ Follow these steps to set up the environment and run the training pipeline.
 ```bash
 git clone [https://github.com/yashtaggy/SAR-Image-Colorization.git](https://github.com/yashtaggy/SAR-Image-Colorization.git)
 cd SAR-Image-Colorization
+```
+
+### 2️⃣ Create a Virtual Environment
+```bash
+python -m venv venv
+source venv/bin/activate    # for Linux/Mac
+# venv\Scripts\activate     # for Windows
+```
+
+### 3️⃣ Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4️⃣ Prepare Data
+```bash
+# This script reads the main GeoTIFF and creates smaller tiles in data/tiles/
+python scripts/make_training_tiles.py
+```
+
+### 5️⃣ Train the Model
+```bash
+python scripts/train_unet.py
+```
+
+### 6️⃣ Visualize Results
+```bash
+python scripts/visualize_results.py
+```
+
